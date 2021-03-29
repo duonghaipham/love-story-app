@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/green_gradient_background"
+        android:elevation="5dp"
         android:orientation="horizontal"
         android:weightSum="15">
 
@@ -16,11 +18,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="13"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_marginStart="5dp"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/edit_text_selector_background"
+            android:backgroundTint="@color/white"
+            android:textCursorDrawable="@null"
             android:textSize="17sp"
+            android:textColor="@color/white_nearly"
+            android:textColorHint="@color/white_nearly"
             android:hint="@string/search_hint"/>
 
         <ImageView
@@ -28,10 +32,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@drawable/ic_magnifying_glass"
+            android:src="@drawable/ic_search_interface_symbol"
             android:foreground="?selectableItemBackground"
-            android:scaleX="0.6"
-            android:scaleY="0.6"/>
+            android:scaleX="0.5"
+            android:scaleY="0.5"/>
 
     </LinearLayout>
 
@@ -41,7 +45,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:horizontalSpacing="20dp"
-        android:verticalSpacing="20dp"
-        android:numColumns="2"/>
+        android:numColumns="2"
+        android:verticalSpacing="20dp" />
 
 </LinearLayout>
