@@ -17,14 +17,7 @@ public class StoryDataSource {
 
     public StoryDataSource(Context context) {
         dbHelper = new DatabaseHelper(context);
-    }
-
-    public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-    }
-
-    public void close() {
-        dbHelper.close();
     }
 
     public void insert(Story story) {
@@ -43,7 +36,6 @@ public class StoryDataSource {
     public List<Story> getAllStories() {
         List<Story> allStories = new Vector<>();
         String selectQuery = "SELECT * FROM Story";
-        open();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
@@ -56,6 +48,20 @@ public class StoryDataSource {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        dbHelper.close();
         return allStories;
+    }
+
+    public Story getStoryById(String id) {
+        String selectQuery = "SELECT * FROM Story WHERE " + DatabaseHelper.STORY_ID + " = " + id;
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        cursor.moveToNext();
+        Story story = new Story(cursor.getString(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getInt(3),
+                                cursor.getBlob(4));
+        dbHelper.close();
+        return story;
     }
 }

@@ -42,8 +42,7 @@ public class ChapterDataAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.chapter_item_background, null);
 
         TextView tvChapterTitle = convertView.findViewById(R.id.tv_chapter_title);
-        tvChapterTitle.setText(chapters.get(position).getStory());
-
+        tvChapterTitle.setText(chapters.get(position).getChapter());
         return convertView;
     }
 }

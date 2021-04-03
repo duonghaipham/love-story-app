@@ -2,33 +2,56 @@ package com.example.love;
 
 import android.os.Bundle;
 
+import com.example.love.adapter.ChapterDataAdapter;
+import com.example.love.database.ChapterDatasource;
+import com.example.love.database.DbBitmapUtility;
+import com.example.love.database.StoryDataSource;
+import com.example.love.model.Chapter;
+import com.example.love.model.Story;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class StoryIntroductionActivity extends AppCompatActivity {
+    private ImageView ivAvatar;
+    private Toolbar toolbar;
+    private CollapsingToolbarLayout toolBarLayout;
+    private ListView lvChapters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_introduction);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        map();
+        setSupportActionBar(toolbar);
+        String position = getIntent().getStringExtra("id");
+
+        StoryDataSource storyDataSource = new StoryDataSource(StoryIntroductionActivity.this);
+        Story story = storyDataSource.getStoryById(position);
+
+        ivAvatar.setImageBitmap(DbBitmapUtility.getImage(story.getAvatar()));
+        toolBarLayout.setTitle(story.getName());
+
+        ChapterDatasource source = new ChapterDatasource(StoryIntroductionActivity.this);
+        List<Chapter> chapters = source.getAllChapters(position);
+        ChapterDataAdapter adapter = new ChapterDataAdapter(StoryIntroductionActivity.this, chapters);
+        lvChapters.setAdapter(adapter);
+
+        source.close();
+    }
+
+    private void map() {
+        ivAvatar = findViewById(R.id.iv_avatar);
+        toolbar = findViewById(R.id.toolbar);
+        toolBarLayout = findViewById(R.id.toolbar_layout);
+        lvChapters = findViewById(R.id.lv_chapters);
     }
 }
