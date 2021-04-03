@@ -43,5 +43,4 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|center"
         app:srcCompat="@android:drawable/ic_dialog_email" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
