@@ -10,14 +10,42 @@
     tools:context=".StoryIntroductionActivity"
     tools:showIn="@layout/activity_story_introduction">
 
-    <ListView
-        android:id="@+id/lv_chapters"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="25dp"
-        android:divider="@color/transparent"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_number_chapters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"/>
+
+        <ListView
+            android:id="@+id/lv_chapters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
+            android:divider="@color/transparent"/>
+
+    </LinearLayout>
+
 
 </androidx.core.widget.NestedScrollView>

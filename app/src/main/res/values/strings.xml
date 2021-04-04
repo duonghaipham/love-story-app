@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">love</string>
-    <string name="search_hint">Search story, author...</string>
+    <string name="search_hint">Tìm kiếm truyện, tác giả…</string>
     <string name="title_activity_story_introduction">ScrollingActivity</string>
-    <string name="administration_area">Administration area</string>
-    <string name="insert_story">Story</string>
-    <string name="insert_story_id">Your story\'s id</string>
-    <string name="insert_story_name">Your story\'s name</string>
-    <string name="insert_story_author">Your story\'s author</string>
-    <string name="insert_story_avatar">Your story\'s avatar</string>
+    <string name="administration_area">Khu vực quản trị</string>
     <string name="action_settings">Settings</string>
+    <string name="author">Tác giả: %s.</string>
+    <string name="number_chapters">Số chương: %d.</string>
+    <string name="avatar">Ảnh bìa truyện</string>
 </resources>

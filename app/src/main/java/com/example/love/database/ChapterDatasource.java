@@ -19,11 +19,11 @@ public class ChapterDatasource {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public void open() throws SQLException {
+    private void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
-    public void close() {
+    private void close() {
         dbHelper.close();
     }
 
@@ -40,6 +40,8 @@ public class ChapterDatasource {
                 allChapters.add(chapter);
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        dbHelper.close();
         return allChapters;
     }
 }
