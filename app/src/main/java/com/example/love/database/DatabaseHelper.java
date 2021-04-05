@@ -17,21 +17,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_CHAPTER = "Chapter";  // table chapter, below are its fields
     public static final String CHAPTER_STORY = "story";
+    public static final String CHAPTER_INDEX = "id";
     public static final String CHAPTER_NAME = "chapter";
     public static final String CHAPTER_CONTENT = "content";
 
     private static final String CREATE_TABLE_STORY = "CREATE TABLE " + TABLE_STORY + "(" +
-                                                     STORY_ID + " TEXT," +
+                                                     STORY_ID + " INTEGER," +
                                                      STORY_NAME + " TEXT," +
                                                      STORY_AUTHOR + " TEXT," +
                                                      STORY_NUMBER_CHAPTERS + " INTEGER," +
                                                      STORY_AVATAR + " BLOB," +
                                                      "PRIMARY KEY (" + STORY_ID +"))";
     private static final String CREATE_TABLE_CHAPTER = "CREATE TABLE " + TABLE_CHAPTER + "(" +
-                                                        CHAPTER_STORY + " TEXT," +
+                                                        CHAPTER_STORY + " INTEGER," +
+                                                        CHAPTER_INDEX + " INTEGER," +
                                                         CHAPTER_NAME + " TEXT," +
                                                         CHAPTER_CONTENT + " TEXT," +
-                                                        "PRIMARY KEY (" + CHAPTER_STORY + ", " + CHAPTER_NAME + ")," +
+                                                        "PRIMARY KEY (" + CHAPTER_STORY + ", " + CHAPTER_INDEX + ")," +
                                                         "FOREIGN KEY(" + CHAPTER_STORY + ") REFERENCES " + TABLE_STORY + "(" + STORY_ID + "))";
 
     public DatabaseHelper(Context context) {

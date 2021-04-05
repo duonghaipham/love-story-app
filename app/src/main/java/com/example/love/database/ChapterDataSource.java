@@ -11,11 +11,11 @@ import com.example.love.model.Chapter;
 import java.util.List;
 import java.util.Vector;
 
-public class ChapterDatasource {
+public class ChapterDataSource {
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
 
-    public ChapterDatasource(Context context) {
+    public ChapterDataSource(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
 
@@ -34,14 +34,31 @@ public class ChapterDatasource {
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Chapter chapter = new Chapter(cursor.getString(0),
-                                              cursor.getString(1),
-                                              cursor.getString(2));
+                Chapter chapter = new Chapter(cursor.getInt(0),
+                                              cursor.getInt(1),
+                                              cursor.getString(2),
+                                              cursor.getString(3));
                 allChapters.add(chapter);
             } while (cursor.moveToNext());
         }
         cursor.close();
         dbHelper.close();
         return allChapters;
+    }
+
+    public Chapter getChapterById(String story, String id) {
+        String selectQuery = "SELECT * FROM Chapter " +
+                             "WHERE " + DatabaseHelper.CHAPTER_STORY + " = " + story + " " +
+                             "AND " + DatabaseHelper.CHAPTER_INDEX + " = " + id;
+        open();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        Chapter chapter = new Chapter(cursor.getInt(0),
+                                      cursor.getInt(1),
+                                      cursor.getString(2),
+                                      cursor.getString(3));
+        cursor.close();
+        close();
+        return chapter;
     }
 }

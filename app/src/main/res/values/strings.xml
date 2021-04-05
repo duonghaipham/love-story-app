@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">love</string>
+    <string name="app_name">Love story</string>
     <string name="search_hint">Tìm kiếm truyện, tác giả…</string>
     <string name="title_activity_story_introduction">ScrollingActivity</string>
     <string name="administration_area">Khu vực quản trị</string>

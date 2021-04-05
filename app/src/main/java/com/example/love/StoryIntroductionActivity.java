@@ -1,10 +1,11 @@
 package com.example.love;
 
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 
 import com.example.love.adapter.ChapterDataAdapter;
-import com.example.love.database.ChapterDatasource;
+import com.example.love.database.ChapterDataSource;
 import com.example.love.database.DbBitmapUtility;
 import com.example.love.database.StoryDataSource;
 import com.example.love.model.Chapter;
@@ -14,9 +15,14 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,12 +40,13 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_story_introduction);
         map();
         setSupportActionBar(toolbar);
-        String index = getIntent().getStringExtra("id");    // get index (position) from the previous activity
-        loadData(index);
+        int indexStory = getIntent().getIntExtra("id", 0);    // get index (position) from the previous activity
+        loadData(String.valueOf(indexStory));
 
         lvChapters.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
-            intent.putExtra("id", position);
+            intent.putExtra("index story", indexStory);
+            intent.putExtra("index chapter", position);
             startActivity(intent);
         });
     }
@@ -53,18 +60,18 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         lvChapters = findViewById(R.id.lv_chapters);
     }
 
-    private void loadData(String position) {    // load data from database and fill into user interface
+    private void loadData(String indexStory) {    // load data from database and fill into user interface
         // get info about the current story
         StoryDataSource storyDataSource = new StoryDataSource(StoryIntroductionActivity.this);
-        Story story = storyDataSource.getStoryById(position);
+        Story story = storyDataSource.getStoryById(indexStory);
         ivAvatar.setImageBitmap(DbBitmapUtility.getImage(story.getAvatar()));
         toolBarLayout.setTitle(story.getName());
         tvAuthor.setText(String.format(getString(R.string.author), story.getAuthor()));
         tvNumberChapters.setText(String.format(getString(R.string.number_chapters), story.getNumber_chapters()));
 
         // get list of chapters of the current story
-        ChapterDatasource chapterDatasource = new ChapterDatasource(StoryIntroductionActivity.this);
-        List<Chapter> chapters = chapterDatasource.getAllChapters(position);
+        ChapterDataSource chapterDatasource = new ChapterDataSource(StoryIntroductionActivity.this);
+        List<Chapter> chapters = chapterDatasource.getAllChapters(indexStory);
         ChapterDataAdapter adapter = new ChapterDataAdapter(StoryIntroductionActivity.this, chapters);
         lvChapters.setAdapter(adapter);
     }

@@ -27,7 +27,7 @@ public class ChapterDataAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Chapter getItem(int position) {
         return chapters.get(position);
     }
 

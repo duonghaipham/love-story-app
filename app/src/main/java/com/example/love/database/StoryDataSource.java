@@ -39,7 +39,7 @@ public class StoryDataSource {
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Story story = new Story(cursor.getString(0),
+                Story story = new Story(cursor.getInt(0),
                                         cursor.getString(1),
                                         cursor.getString(2),
                                         cursor.getInt(3),
@@ -56,7 +56,7 @@ public class StoryDataSource {
         String selectQuery = "SELECT * FROM Story WHERE " + DatabaseHelper.STORY_ID + " = " + id;
         Cursor cursor = database.rawQuery(selectQuery, null);
         cursor.moveToNext();
-        Story story = new Story(cursor.getString(0),
+        Story story = new Story(cursor.getInt(0),
                                 cursor.getString(1),
                                 cursor.getString(2),
                                 cursor.getInt(3),

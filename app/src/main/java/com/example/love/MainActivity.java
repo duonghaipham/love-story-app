@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         gvStories.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(MainActivity.this, StoryIntroductionActivity.class);
-            intent.putExtra("id", String.valueOf(position));
+            intent.putExtra("id", position);
             startActivity(intent);
         });
     }

@@ -1,13 +1,13 @@
 package com.example.love.model;
 
 public class Story {
-    private String id;
+    private int id;
     private String name;
     private String author;
     private int number_chapters;
     private byte[] avatar;
 
-    public Story(String id, String name, String author, int number_chapters, byte[] avatar) {
+    public Story(int id, String name, String author, int number_chapters, byte[] avatar) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -15,11 +15,11 @@ public class Story {
         this.avatar = avatar;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

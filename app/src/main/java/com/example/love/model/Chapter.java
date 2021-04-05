@@ -1,22 +1,32 @@
 package com.example.love.model;
 
 public class Chapter {
-    private String story;
+    private int story;
+    private int id;
     private String chapter;
     private String content;
 
-    public Chapter(String story, String chapter, String content) {
+    public Chapter(int story, int id, String chapter, String content) {
         this.story = story;
+        this.id = id;
         this.chapter = chapter;
         this.content = content;
     }
 
-    public String getStory() {
+    public int getStory() {
         return story;
     }
 
-    public void setStory(String story) {
+    public void setStory(int story) {
         this.story = story;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getChapter() {
