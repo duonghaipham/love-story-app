@@ -33,6 +33,7 @@ public class StoryIntroductionActivity extends AppCompatActivity {
     private TextView tvAuthor;
     private TextView tvNumberChapters;
     private ListView lvChapters;
+    private int numberChapters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class StoryIntroductionActivity extends AppCompatActivity {
             Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
             intent.putExtra("index story", indexStory);
             intent.putExtra("index chapter", position);
+            intent.putExtra("number chapters", numberChapters);
             startActivity(intent);
         });
     }
@@ -68,6 +70,7 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         toolBarLayout.setTitle(story.getName());
         tvAuthor.setText(String.format(getString(R.string.author), story.getAuthor()));
         tvNumberChapters.setText(String.format(getString(R.string.number_chapters), story.getNumber_chapters()));
+        numberChapters = story.getNumber_chapters();
 
         // get list of chapters of the current story
         ChapterDataSource chapterDatasource = new ChapterDataSource(StoryIntroductionActivity.this);
