@@ -1,10 +1,10 @@
 package com.example.love;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 
-import com.example.love.adapter.ChapterDataAdapter;
+import com.example.love.adapter.RVChapterAdapter;
+import com.example.love.adapter.RecyclerItemClickListener;
 import com.example.love.database.ChapterDataSource;
 import com.example.love.database.DbBitmapUtility;
 import com.example.love.database.StoryDataSource;
@@ -14,15 +14,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class StoryIntroductionActivity extends AppCompatActivity {
     private CollapsingToolbarLayout toolBarLayout;
     private TextView tvAuthor;
     private TextView tvNumberChapters;
-    private ListView lvChapters;
+    private RecyclerView rvChapters;
     private int numberChapters;
 
     @Override
@@ -44,13 +41,20 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         int indexStory = getIntent().getIntExtra("id", 0);    // get index (position) from the previous activity
         loadData(String.valueOf(indexStory));
 
-        lvChapters.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
-            intent.putExtra("index story", indexStory);
-            intent.putExtra("index chapter", position);
-            intent.putExtra("number chapters", numberChapters);
-            startActivity(intent);
-        });
+        rvChapters.addOnItemTouchListener(
+                new RecyclerItemClickListener(StoryIntroductionActivity.this, rvChapters, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
+                        intent.putExtra("index story", indexStory);
+                        intent.putExtra("index chapter", position);
+                        intent.putExtra("number chapters", numberChapters);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) { }
+                }));
     }
 
     private void map() {    // map between front-end control and its back-end ones
@@ -59,7 +63,7 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         toolBarLayout = findViewById(R.id.toolbar_layout);
         tvAuthor = findViewById(R.id.tv_author);
         tvNumberChapters = findViewById(R.id.tv_number_chapters);
-        lvChapters = findViewById(R.id.lv_chapters);
+        rvChapters = findViewById(R.id.rv_chapters);
     }
 
     private void loadData(String indexStory) {    // load data from database and fill into user interface
@@ -75,7 +79,8 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         // get list of chapters of the current story
         ChapterDataSource chapterDatasource = new ChapterDataSource(StoryIntroductionActivity.this);
         List<Chapter> chapters = chapterDatasource.getAllChapters(indexStory);
-        ChapterDataAdapter adapter = new ChapterDataAdapter(StoryIntroductionActivity.this, chapters);
-        lvChapters.setAdapter(adapter);
+        RVChapterAdapter adapter = new RVChapterAdapter(StoryIntroductionActivity.this, chapters);
+        rvChapters.setLayoutManager(new LinearLayoutManager(StoryIntroductionActivity.this));
+        rvChapters.setAdapter(adapter);
     }
 }
