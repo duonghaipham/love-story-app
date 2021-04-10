@@ -3,7 +3,6 @@ package com.example.love.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.love.model.Story;
@@ -50,6 +49,27 @@ public class StoryDataSource {
         cursor.close();
         dbHelper.close();
         return allStories;
+    }
+
+    public List<Story> getStoriesBySearch(String keyword) {
+        List<Story> stories = new Vector<>();
+        String selectQuery = "SELECT * FROM Story WHERE id = " +
+                             "(SELECT id FROM VirtualStory WHERE VirtualStory MATCH ?)";
+        String[] keywords = { keyword };
+        Cursor cursor = database.rawQuery(selectQuery, keywords);
+        if (cursor.moveToFirst()) {
+            do {
+                Story story = new Story(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getBlob(4));
+                stories.add(story);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        dbHelper.close();
+        return stories;
     }
 
     public Story getStoryById(String id) {

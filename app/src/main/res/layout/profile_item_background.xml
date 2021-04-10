@@ -9,14 +9,15 @@
         android:id="@+id/iv_avt"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:contentDescription="@string/avatar"/>
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:layout_marginTop="7dp"
+        android:textSize="18sp"
         android:textAlignment="center"/>
 
 </LinearLayout>

@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.love.database.ChapterDataSource;
 import com.example.love.model.Chapter;
 
 public class ReadingInterfaceActivity extends AppCompatActivity {
-
     private TextView tvChapterBar;
     private TextView tvBody;
     private ImageView ivPrevious;

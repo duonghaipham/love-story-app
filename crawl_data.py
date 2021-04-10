@@ -25,7 +25,10 @@ def GetContent(url):
     for item in soup:
         element = item.contents[0]
         list_paragraphs.append(element)
-
+    
+    list_paragraphs.pop(0);
+    list_paragraphs.pop(len(list_paragraphs) - 1)
+    
     return '\n'.join(list_paragraphs)
 
 def GenerateQuery(story, id, chapter, content):
