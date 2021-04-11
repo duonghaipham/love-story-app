@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Love">
-        <activity android:name=".AdministrationActivity"></activity>
         <activity
             android:name=".StoryIntroductionActivity"
             android:label="@string/title_activity_story_introduction"

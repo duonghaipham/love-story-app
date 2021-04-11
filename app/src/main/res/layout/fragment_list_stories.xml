@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="@string/search_hint"/>
+
+    <GridView
+        android:id="@+id/gv_stories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:gravity="center"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"
+        android:verticalSpacing="20dp" />
+
+</LinearLayout>
