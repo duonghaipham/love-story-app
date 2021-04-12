@@ -14,4 +14,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="violet_lavender">#FFE39FF6</color>
     <color name="black_metal">#FF424242</color>
+    <color name="red_crimson">#FFB90E0A</color>
+    <color name="yellow_bumblebee">#FFFCE205</color>
+    <color name="blue_azure">#FF0080FF</color>
 </resources>

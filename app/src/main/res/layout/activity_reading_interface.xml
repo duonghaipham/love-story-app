@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/ll_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -50,19 +50,57 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_bar">
 
         <TextView
             android:id="@+id/tv_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:justificationMode="inter_word"
             android:lineSpacingExtra="20sp"
             android:textSize="23sp"
             android:textColor="@color/black_metal"
             android:fontFamily="@font/ebgaramond_medium"/>
-
     </ScrollView>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_baseline_more_horiz_24"
+        app:backgroundTint="@color/red_crimson"
+        app:tint="@color/white"/>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/fab_more"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_baseline_star_24"
+        android:visibility="gone"
+        app:backgroundTint="@color/yellow_bumblebee"
+        app:tint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/fab_star"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_baseline_bookmarks_24"
+        android:visibility="gone"
+        app:backgroundTint="@color/blue_azure"
+        app:tint="@color/white"/>
+
+</RelativeLayout>

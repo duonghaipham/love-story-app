@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -12,12 +13,17 @@ import android.widget.Toast;
 
 import com.example.love.database.ChapterDataSource;
 import com.example.love.model.Chapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ReadingInterfaceActivity extends AppCompatActivity {
     private TextView tvChapterBar;
     private TextView tvBody;
     private ImageView ivPrevious;
     private ImageView ivNext;
+    private FloatingActionButton fabMore;
+    private FloatingActionButton fabStar;
+    private FloatingActionButton fabBookmark;
+    private boolean fabExpanded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,27 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        fabMore.setOnClickListener(v -> {
+            if (!fabExpanded) {
+                fabStar.show();
+                fabBookmark.show();
+                fabExpanded = true;
+            }
+            else {
+                fabStar.hide();
+                fabBookmark.hide();
+                fabExpanded = false;
+            }
+        });
+
+        fabStar.setOnClickListener(v -> {
+            Toast.makeText(this, "Đã thích", Toast.LENGTH_SHORT).show();
+        });
+
+        fabBookmark.setOnClickListener(v -> {
+            Toast.makeText(this, "Đã đánh dấu", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void map() {    // map between front-end control and its back-end ones
@@ -56,6 +83,11 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
         tvBody = findViewById(R.id.tv_body);
         ivPrevious = findViewById(R.id.iv_previous);
         ivNext = findViewById(R.id.iv_next);
+        fabMore = findViewById(R.id.fab_more);
+        fabStar = findViewById(R.id.fab_star);
+        fabBookmark = findViewById(R.id.fab_bookmark);
+
+        fabExpanded = false;
     }
 
     private void loadData(String indexStory, String indexChapter) { // load data from database and fill into user interface
