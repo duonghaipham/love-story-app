@@ -1,9 +1,13 @@
 package com.example.love;
 
+import androidx.annotation.ArrayRes;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +17,16 @@ import android.widget.Toast;
 
 import com.example.love.database.ChapterDataSource;
 import com.example.love.model.Chapter;
+import com.example.love.model.MiniContent;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class ReadingInterfaceActivity extends AppCompatActivity {
     private TextView tvChapterBar;
@@ -23,7 +36,11 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
     private FloatingActionButton fabMore;
     private FloatingActionButton fabStar;
     private FloatingActionButton fabBookmark;
+
     private boolean fabExpanded;
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +52,9 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
         int indexChapter = getIntent().getIntExtra("index chapter", 0);
         int numberChapters = getIntent().getIntExtra("number chapters", 0);
         loadData(String.valueOf(indexStory), String.valueOf(indexChapter));
+
+        preferences = getSharedPreferences("com.example.love.PREFERENCE_KEY", Context.MODE_PRIVATE);
+        editor = preferences.edit();
 
         ivPrevious.setOnClickListener(v -> {
             if (indexChapter > 0) {
@@ -56,25 +76,43 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
             }
         });
 
+
+
         fabMore.setOnClickListener(v -> {
             if (!fabExpanded) {
+                ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(ReadingInterfaceActivity.this);
+                int position = getBookmarkPosition(miniContents, indexStory, indexChapter);
+                if (position != -1)
+                    fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+
                 fabStar.show();
                 fabBookmark.show();
                 fabExpanded = true;
+
+                fabBookmark.setOnClickListener(sub_v -> {
+                    if (position != -1) {
+                        miniContents.remove(position);
+                        fabBookmark.setImageResource(R.drawable.ic_baseline_bookmarks_24);
+                        Toast.makeText(ReadingInterfaceActivity.this, "Đã xóa khỏi dấu trang", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        miniContents.add(new MiniContent(indexStory, indexChapter));
+                        fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        Toast.makeText(ReadingInterfaceActivity.this, "Đã thêm vào dấu trang", Toast.LENGTH_SHORT).show();
+                    }
+                    UsingPreferences.clearBookmarkArray(ReadingInterfaceActivity.this);
+                    UsingPreferences.setBookmarkArray(ReadingInterfaceActivity.this, miniContents);
+                });
+
+                fabStar.setOnClickListener(sub_v -> {
+                    Toast.makeText(this, "Đã thích", Toast.LENGTH_SHORT).show();
+                });
             }
             else {
                 fabStar.hide();
                 fabBookmark.hide();
                 fabExpanded = false;
             }
-        });
-
-        fabStar.setOnClickListener(v -> {
-            Toast.makeText(this, "Đã thích", Toast.LENGTH_SHORT).show();
-        });
-
-        fabBookmark.setOnClickListener(v -> {
-            Toast.makeText(this, "Đã đánh dấu", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -96,5 +134,13 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
 
         tvChapterBar.setText(chapter.getChapter());
         tvBody.setText(chapter.getContent());
+    }
+
+    private int getBookmarkPosition(ArrayList<MiniContent> miniContents, int indexStory, int indexChapter) {
+        MiniContent mirror = new MiniContent(indexStory, indexChapter);
+        for (int i = 0; i < miniContents.size(); i++)
+            if (miniContents.get(i).equal(mirror))
+                return i;
+        return -1;
     }
 }
