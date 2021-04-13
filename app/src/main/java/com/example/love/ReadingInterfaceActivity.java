@@ -64,31 +64,31 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
         });
 
         fabMore.setOnClickListener(v -> {
-            if (!fabExpanded) {
+            if (!fabExpanded) { // fabMore isn't expanded
                 ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(ReadingInterfaceActivity.this) == null
                         ? new ArrayList<>() : UsingPreferences.getBookmarkArray(ReadingInterfaceActivity.this);
                 AtomicInteger position = new AtomicInteger(getBookmarkPosition(miniContents, indexStory, indexChapter));
-                if (position.get() != -1)
-                    fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                if (position.get() != -1)   // already bookmarked
+                    fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);  // set icon to check
 
                 fabBookmark.show();
                 fabExpanded = true;
 
                 fabBookmark.setOnClickListener(sub_v -> {
-                    if (position.get() != -1) {
+                    if (position.get() != -1) { // already bookmarked
                         miniContents.remove(position.get());
-                        position.set(-1);
-                        fabBookmark.setImageResource(R.drawable.ic_baseline_bookmarks_24);
+                        position.set(-1);   // after deleted, there is no record
+                        fabBookmark.setImageResource(R.drawable.ic_baseline_bookmarks_24);  // set icon to default
                         Toast.makeText(ReadingInterfaceActivity.this, "Đã xóa khỏi dấu trang", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        position.set(miniContents.size());
-                        miniContents.add(new MiniContent(indexStory, indexChapter));
-                        fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);
+                        position.set(miniContents.size());  // set position as the index of the last element of the array
+                        miniContents.add(new MiniContent(indexStory, indexChapter));    // append this to the array
+                        fabBookmark.setImageResource(R.drawable.ic_baseline_check_24);  // set icon to check
                         Toast.makeText(ReadingInterfaceActivity.this, "Đã thêm vào dấu trang", Toast.LENGTH_SHORT).show();
                     }
-                    UsingPreferences.clearBookmarkArray(ReadingInterfaceActivity.this);
-                    UsingPreferences.setBookmarkArray(ReadingInterfaceActivity.this, miniContents);
+                    UsingPreferences.clearBookmarkArray(ReadingInterfaceActivity.this); // clear preferences
+                    UsingPreferences.setBookmarkArray(ReadingInterfaceActivity.this, miniContents); // update it
                 });
             }
             else {
@@ -117,7 +117,7 @@ public class ReadingInterfaceActivity extends AppCompatActivity {
         tvBody.setText(chapter.getContent());
     }
 
-    private int getBookmarkPosition(ArrayList<MiniContent> miniContents, int indexStory, int indexChapter) {
+    private int getBookmarkPosition(ArrayList<MiniContent> miniContents, int indexStory, int indexChapter) {    // get position of this in array
         MiniContent mirror = new MiniContent(indexStory, indexChapter);
         for (int i = 0; i < miniContents.size(); i++)
             if (miniContents.get(i).equal(mirror))

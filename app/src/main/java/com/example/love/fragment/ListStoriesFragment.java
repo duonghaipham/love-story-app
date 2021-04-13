@@ -46,8 +46,8 @@ public class ListStoriesFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 StoryDataSource source = new StoryDataSource(getActivity());
-                List<Story> stories = source.getStoriesBySearch(query);
-                loadGridStory(stories);
+                List<Story> stories = source.getStoriesBySearch(query); // query to database and get requested result
+                loadGridStory(stories); // load them to grid view
                 svSearch.clearFocus();
                 return false;
             }

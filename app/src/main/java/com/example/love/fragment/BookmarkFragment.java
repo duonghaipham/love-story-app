@@ -1,6 +1,5 @@
 package com.example.love.fragment;
 
-import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,12 +46,12 @@ public class BookmarkFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
+    public void onResume() {    // refresh recycler view in need
         super.onResume();
         loadData();
     }
 
-    private void loadData() {
+    private void loadData() {   // load data to view
         ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(getActivity());
         if (miniContents != null) {
             RVBookmarkAdapter adapter = new RVBookmarkAdapter(getActivity(), miniContents);
