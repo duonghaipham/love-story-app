@@ -17,4 +17,7 @@
     <color name="red_crimson">#FFB90E0A</color>
     <color name="yellow_bumblebee">#FFFCE205</color>
     <color name="blue_azure">#FF0080FF</color>
+    <color name="gray_slate">#FF3E3D53</color>
+    <color name="gray_pewter">#FF696880</color>
+    <color name="gray_graphite">#FF594F5D</color>
 </resources>

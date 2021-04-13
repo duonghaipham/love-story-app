@@ -18,6 +18,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:textSize="18sp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="@color/gray_slate"
+        android:fontFamily="@font/roboto_condensed_regular"/>
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:textColor="@color/gray_slate"
+        android:fontFamily="@font/roboto_condensed_regular"/>
 
 </LinearLayout>

@@ -16,7 +16,9 @@
         android:layout_marginTop="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/gray_pewter"
+        android:fontFamily="@font/roboto_condensed_regular"/>
 
     <TextView
         android:id="@+id/tv_chapter_second"
@@ -25,6 +27,8 @@
         android:layout_marginBottom="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/gray_flint"
+        android:fontFamily="@font/open_sans_condensed_bold"/>
 
 </LinearLayout>

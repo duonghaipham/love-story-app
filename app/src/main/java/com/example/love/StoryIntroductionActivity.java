@@ -42,17 +42,11 @@ public class StoryIntroductionActivity extends AppCompatActivity {
         loadData(String.valueOf(indexStory));
 
         rvChapters.addOnItemTouchListener(
-                new RecyclerItemClickListener(StoryIntroductionActivity.this, rvChapters, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
-                        intent.putExtra("index story", indexStory);
-                        intent.putExtra("index chapter", position);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) { }
+                new RecyclerItemClickListener(StoryIntroductionActivity.this, rvChapters, (view, position) -> {
+                    Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
+                    intent.putExtra("index story", indexStory);
+                    intent.putExtra("index chapter", position);
+                    startActivity(intent);
                 }));
     }
 

@@ -17,6 +17,8 @@
         android:layout_marginBottom="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/gray_graphite"
+        android:fontFamily="@font/roboto_condensed_regular"/>
 
 </LinearLayout>

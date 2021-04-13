@@ -35,7 +35,7 @@
             android:textSize="25sp"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_condensed_regular"/>
 
         <ImageView
             android:id="@+id/iv_next"
@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
+            android:paddingBottom="25dp"
             android:justificationMode="inter_word"
             android:lineSpacingExtra="20sp"
             android:textSize="23sp"

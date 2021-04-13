@@ -1,5 +1,6 @@
 package com.example.love.fragment;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -36,22 +37,13 @@ public class BookmarkFragment extends Fragment {
         loadData();
 
         rvStoryChapter.addOnItemTouchListener(
-                new RecyclerItemClickListener(getActivity(), rvStoryChapter, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(getActivity());
-                Intent intent = new Intent(getActivity(), ReadingInterfaceActivity.class);
-                intent.putExtra("index story", miniContents.get(position).getStory());
-                intent.putExtra("index chapter", miniContents.get(position).getChapter());
-                startActivity(intent);
-//                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-//                PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-            }
-        }));
+                new RecyclerItemClickListener(getActivity(), rvStoryChapter, (sub_view, position) -> {
+                    ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(getActivity());
+                    Intent intent = new Intent(getActivity(), ReadingInterfaceActivity.class);
+                    intent.putExtra("index story", miniContents.get(position).getStory());
+                    intent.putExtra("index chapter", miniContents.get(position).getChapter());
+                    startActivity(intent);
+                }));
     }
 
     @Override

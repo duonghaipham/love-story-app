@@ -12,6 +12,8 @@ import com.example.love.R;
 import com.example.love.database.DbBitmapUtility;
 import com.example.love.model.Story;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class StoryDataAdapter extends BaseAdapter {
@@ -45,9 +47,11 @@ public class StoryDataAdapter extends BaseAdapter {
 
         ImageView ivAvt = convertView.findViewById(R.id.iv_avt);
         TextView tvName = convertView.findViewById(R.id.tv_name);
+        TextView tvAuthor = convertView.findViewById(R.id.tv_author);
 
         ivAvt.setImageBitmap(DbBitmapUtility.getImage(stories.get(position).getAvatar()));
         tvName.setText(stories.get(position).getName());
+        tvAuthor.setText(stories.get(position).getAuthor());
 
         return convertView;
     }
