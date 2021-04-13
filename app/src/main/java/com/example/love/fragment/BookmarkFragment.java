@@ -1,7 +1,6 @@
 package com.example.love.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,19 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.love.R;
-import com.example.love.StoryIntroductionActivity;
+import com.example.love.ReadingInterfaceActivity;
+import com.example.love.UsingPreferences;
 import com.example.love.adapter.RVBookmarkAdapter;
+import com.example.love.adapter.RecyclerItemClickListener;
 import com.example.love.model.MiniContent;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class BookmarkFragment extends Fragment {
     private RecyclerView rvStoryChapter;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +34,24 @@ public class BookmarkFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
         rvStoryChapter = view.findViewById(R.id.rv_story_chapter_bookmark);
         loadData();
+
+        rvStoryChapter.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), rvStoryChapter, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(getActivity());
+                Intent intent = new Intent(getActivity(), ReadingInterfaceActivity.class);
+                intent.putExtra("index story", miniContents.get(position).getStory());
+                intent.putExtra("index chapter", miniContents.get(position).getChapter());
+                startActivity(intent);
+//                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+//                PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+            }
+        }));
     }
 
     @Override
@@ -47,14 +61,7 @@ public class BookmarkFragment extends Fragment {
     }
 
     private void loadData() {
-        String key = "com.example.love.BOOKMARK_KEY";
-        preferences = getActivity().getSharedPreferences("com.example.love.PREFERENCE_KEY", Context.MODE_PRIVATE);
-
-        Gson gson = new Gson();
-        String storyVsChapter = preferences.getString(key, null);
-        Type type = new TypeToken<ArrayList<MiniContent>>() {}.getType();
-        ArrayList<MiniContent> miniContents = gson.fromJson(storyVsChapter, type);
-
+        ArrayList<MiniContent> miniContents = UsingPreferences.getBookmarkArray(getActivity());
         if (miniContents != null) {
             RVBookmarkAdapter adapter = new RVBookmarkAdapter(getActivity(), miniContents);
             rvStoryChapter.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -48,7 +48,6 @@ public class StoryIntroductionActivity extends AppCompatActivity {
                         Intent intent = new Intent(StoryIntroductionActivity.this, ReadingInterfaceActivity.class);
                         intent.putExtra("index story", indexStory);
                         intent.putExtra("index chapter", position);
-                        intent.putExtra("number chapters", numberChapters);
                         startActivity(intent);
                     }
 

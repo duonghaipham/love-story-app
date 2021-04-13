@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.love.fragment.BookmarkFragment;
 import com.example.love.fragment.ListStoriesFragment;
-import com.example.love.fragment.StarFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
@@ -22,9 +21,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new BookmarkFragment();
                 break;
-            case 2:
-                fragment = new StarFragment();
-                break;
             default:
                 fragment = new ListStoriesFragment();
                 break;
@@ -34,7 +30,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -43,9 +39,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 1:
                 title = "DẤU TRANG";
-                break;
-            case 2:
-                title = "ĐÃ THÍCH";
                 break;
             default:
                 title = "DANH SÁCH";
